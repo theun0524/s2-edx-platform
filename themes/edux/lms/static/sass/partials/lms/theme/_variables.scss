@@ -1,0 +1,12 @@
+// Override theming for edx.org bootstrap
+$primary: #c61065;
+
+$baseline: 20px !default;
+
+body{
+  font-size:14px;
+  line-height: 1.5;
+  letter-spacing: -2.5;
+}
+
+@import 'edx-bootstrap/sass/edx/theme';
