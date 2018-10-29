@@ -119,6 +119,7 @@ log/
 logs
 chromedriver.log
 ghostdriver.log
+watch_assets.log
 
 ### Celery artifacts ###
 celerybeat-schedule

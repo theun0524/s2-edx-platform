@@ -49,8 +49,8 @@ from lms.djangoapps.lms_xblock.mixin import LmsBlockMixin
 
 ################################### FEATURES ###################################
 # The display name of the platform to be used in templates/emails/etc.
-PLATFORM_NAME = _('Your Platform Name Here')
-PLATFORM_DESCRIPTION = _('Your Platform Description Here')
+PLATFORM_NAME = _('EduX')
+PLATFORM_DESCRIPTION = _('EduX')
 CC_MERCHANT_NAME = PLATFORM_NAME
 
 PLATFORM_FACEBOOK_ACCOUNT = "http://www.facebook.com/YourPlatformFacebookAccount"
@@ -58,7 +58,7 @@ PLATFORM_TWITTER_ACCOUNT = "@YourPlatformTwitterAccount"
 
 ENABLE_JASMINE = False
 
-LMS_ROOT_URL = "http://localhost:8000"
+LMS_ROOT_URL = "http://s2:8000"
 LMS_INTERNAL_ROOT_URL = LMS_ROOT_URL
 LMS_ENROLLMENT_API_PATH = "/api/enrollment/v1/"
 
@@ -252,7 +252,7 @@ FEATURES = {
     # When a logged in user goes to the homepage ('/') should the user be
     # redirected to the dashboard - this is default Open edX behavior. Set to
     # False to not redirect the user
-    'ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER': True,
+    'ALWAYS_REDIRECT_HOMEPAGE_TO_DASHBOARD_FOR_AUTHENTICATED_USER': False,
 
     # When a user goes to the homepage ('/') the user sees the
     # courses listed in the announcement dates order - this is default Open edX behavior.
@@ -335,7 +335,7 @@ FEATURES = {
     'ENABLE_LTI_PROVIDER': False,
 
     # Show the language selector in the header
-    'SHOW_HEADER_LANGUAGE_SELECTOR': False,
+    'SHOW_HEADER_LANGUAGE_SELECTOR': True,
 
     # At edX it's safe to assume that English transcripts are always available
     # This is not the case for all installations.
@@ -840,7 +840,7 @@ XBLOCK_FIELD_DATA_WRAPPERS = ()
 MODULESTORE_BRANCH = 'published-only'
 CONTENTSTORE = None
 DOC_STORE_CONFIG = {
-    'host': 'localhost',
+    'host': 's2',
     'db': 'xmodule',
     'collection': 'modulestore',
     # If 'asset_collection' defined, it'll be used
@@ -912,7 +912,7 @@ SESSION_SAVE_EVERY_REQUEST = False
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 # CMS base
-CMS_BASE = 'localhost:8001'
+CMS_BASE = 's2:8001'
 
 # Site info
 SITE_NAME = "example.com"
@@ -960,7 +960,7 @@ MEDIA_URL = '/media/'
 
 # Locale/Internationalization
 TIME_ZONE = 'America/New_York'  # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-LANGUAGE_CODE = 'en'  # http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'ko-kr'  # http://www.i18nguy.com/unicode/language-identifiers.html
 # these languages display right to left
 LANGUAGES_BIDI = ("he", "ar", "fa", "ur", "fa-ir", "rtl")
 
@@ -1160,8 +1160,8 @@ PAYMENT_REPORT_GENERATOR_GROUP = 'shoppingcart_report_access'
 ################################# EdxNotes config  #########################
 
 # Configure the LMS to use our stub EdxNotes implementation
-EDXNOTES_PUBLIC_API = 'http://localhost:8120/api/v1'
-EDXNOTES_INTERNAL_API = 'http://localhost:8120/api/v1'
+EDXNOTES_PUBLIC_API = 'http://s2:8120/api/v1'
+EDXNOTES_INTERNAL_API = 'http://s2:8120/api/v1'
 
 EDXNOTES_CONNECT_TIMEOUT = 0.5  # time in seconds
 EDXNOTES_READ_TIMEOUT = 1.5  # time in seconds
@@ -1190,7 +1190,7 @@ FOOTER_OPENEDX_LOGO_IMAGE = "https://files.edx.org/openedx-logos/edx-openedx-log
 
 # This is just a placeholder image.
 # Site operators can customize this with their organization's image.
-FOOTER_ORGANIZATION_IMAGE = "images/logo.png"
+FOOTER_ORGANIZATION_IMAGE = "images/footer_logo.png"
 
 # These are referred to both by the Django asset pipeline
 # AND by the branding footer API, which needs to decide which
@@ -2587,7 +2587,7 @@ BADGING_BACKEND = 'badges.backends.badgr.BadgrBackend'
 # Be sure to set up images for course modes using the BadgeImageConfiguration model in the certificates app.
 BADGR_API_TOKEN = None
 # Do not add the trailing slash here.
-BADGR_BASE_URL = "http://localhost:8005"
+BADGR_BASE_URL = "http://s2:8005"
 BADGR_ISSUER_SLUG = "example-issuer"
 # Number of seconds to wait on the badging server when contacting it before giving up.
 BADGR_TIMEOUT = 10
@@ -2925,7 +2925,7 @@ OPENID_DOMAIN_PREFIX = 'openid:'
 
 ### Analytics API
 ANALYTICS_API_KEY = ""
-ANALYTICS_API_URL = "http://localhost:18100"
+ANALYTICS_API_URL = "http://s2:18100"
 
 # REGISTRATION CODES DISPLAY INFORMATION SUBTITUTIONS IN THE INVOICE ATTACHMENT
 INVOICE_CORP_ADDRESS = "Please place your corporate address\nin this configuration"
@@ -3389,7 +3389,7 @@ ENTERPRISE_READONLY_ACCOUNT_FIELDS = [
     'country',
 ]
 ENTERPRISE_CUSTOMER_COOKIE_NAME = 'enterprise_customer_uuid'
-BASE_COOKIE_DOMAIN = 'localhost'
+BASE_COOKIE_DOMAIN = 's2'
 
 ############## Settings for Course Enrollment Modes ######################
 COURSE_ENROLLMENT_MODES = {
