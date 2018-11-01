@@ -9,7 +9,7 @@ LOGGING['handlers']['local'] = LOGGING['handlers']['tracking'] = {
 
 LOGGING['loggers']['tracking']['handlers'] = ['console']
 
-LMS_BASE = 'edx.devstack.lms:18000'
+LMS_BASE = 's2:18000'
 CMS_BASE = 'edx.devstack.studio:18010'
 SITE_NAME = LMS_BASE
 LMS_ROOT_URL = 'http://{}'.format(LMS_BASE)
@@ -43,9 +43,9 @@ JWT_AUTH.update({
 
 FEATURES.update({
     'AUTOMATIC_AUTH_FOR_TESTING': True,
-    'ENABLE_COURSEWARE_SEARCH': False,
-    'ENABLE_COURSE_DISCOVERY': False,
-    'ENABLE_DASHBOARD_SEARCH': False,
+    'ENABLE_COURSEWARE_SEARCH': True,
+    'ENABLE_COURSE_DISCOVERY': True,
+    'ENABLE_DASHBOARD_SEARCH': True,
     'ENABLE_DISCUSSION_SERVICE': True,
     'SHOW_HEADER_LANGUAGE_SELECTOR': True,
     'ENABLE_ENTERPRISE_INTEGRATION': False,
