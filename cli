@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+down() {
+  cd ../devstack && docker-compose -f docker-compose.yml -f docker-compose-host.yml down
+}
+
+logs() {
+  cd ../devstack && docker-compose -f docker-compose.yml -f docker-compose-analytics-pipeline.yml logs -f --tail=500 lms
+}
+
+restart () {
+  echo "Restarting LMS service."
+  docker exec -t edx.devstack.lms bash -c 'kill $(ps aux | grep "manage.py lms" | egrep -v "while|grep" | awk "{print \$2}")'
+}
+
+shell() {
+  docker exec -it edx.devstack.lms env TERM=xterm-256color /edx/app/edxapp/devstack.sh open
+}
+
+up() {
+  docker-compose -f ../devstack/docker-compose.yml -f ../devstack/docker-compose-host.yml up -d
+  docker cp lms.env.json edx.devstack.lms:/edx/app/edxapp/
+  docker exec -t edx.devstack.lms bash -c 'source /edx/app/edxapp/edxapp_env && cd /edx/app/edxapp/edx-platform/ && pip install -e /edx/src/reactlms/'
+  cd ../devstack && ./programs/provision.sh cache > /dev/null
+}
+
+update_assets() {
+  docker exec -t edx.devstack.lms bash -c 'source /edx/app/edxapp/edxapp_env && cd /edx/app/edxapp/edx-platform/ && paver update_assets'
+}
+
+update_env() {
+  echo "Copy lms.env.json to edx.devstack.lms:/edx/app/edxapp"
+  docker cp lms.env.json edx.devstack.lms:/edx/app/edxapp/
+  restart
+}
+
+print_help() {
+  echo "edx-platform command line tool."
+  echo "usage: $0 [<option>]"
+  echo ""
+  printf "  \033[36m help \033[0m           Print this help messages.\n"
+  printf "  \033[36m down \033[0m           Remove all service containers and networks\n"
+  printf "  \033[36m up \033[0m             Bring up lms service with host volumns\n"
+  printf "  \033[36m logs \033[0m           View logs from containers running in detached mode\n"
+  printf "  \033[36m restart \033[0m        Kill the LMS Django development server. The watcher process will restart it.\n"
+  printf "  \033[36m shell \033[0m          Run a shell on the LMS container\n"
+  printf "  \033[36m update_assets \033[0m  Rebuild static assets for LMS service container\n"
+  printf "  \033[36m update_env \033[0m     copy lms.env.json file to LMS service container\n"
+  echo ""
+}
+
+process_option() {
+  if [ "$1" == "down" ]; then
+    down
+  elif [ "$1" == "logs" ]; then
+    logs
+  elif [ "$1" == "restart" ]; then
+    restart
+  elif [ "$1" == "shell" ]; then
+    shell
+  elif [ "$1" == "up" ]; then
+    up
+  elif [ "$1" == "update_assets" ]; then
+    update_assets
+  elif [ "$1" == "update_env" ]; then
+    update_env
+  elif [[ "$1" == "help" || "$1" == "" ]]; then
+    print_help
+  fi
+}
+
+for param in "$@"
+do
+  process_option "${param}"
+done
+
+

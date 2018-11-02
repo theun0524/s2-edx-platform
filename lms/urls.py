@@ -54,6 +54,9 @@ from student_account import views as student_account_views
 from track import views as track_views
 from util import views as util_views
 
+# react-lms
+from react_lms.settings import REACT_LMS
+
 if settings.DEBUG or settings.FEATURES.get('ENABLE_DJANGO_ADMIN_SITE'):
     django_autodiscover()
     admin.site.site_header = _('LMS Administration')
@@ -1081,5 +1084,9 @@ if settings.FEATURES.get('ENABLE_API_DOCS'):
     urlpatterns += [
         url(r'^api-docs/$', get_swagger_view(title='LMS API')),
     ]
+
+urlpatterns += [
+    url(r'^react-lms/', include('react_lms.urls', namespace='react-lms')),
+]
 
 urlpatterns.extend(plugin_urls.get_patterns(plugin_constants.ProjectType.LMS))

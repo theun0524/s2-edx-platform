@@ -9,6 +9,9 @@ The following are currently implemented:
 
 # pylint: disable=abstract-method
 
+import logging
+LOGGER = logging.getLogger(__name__)
+
 import django.contrib.auth as auth
 import social_django.utils as social_utils
 from django.conf import settings
@@ -194,6 +197,10 @@ class LoginWithAccessTokenView(APIView):
                 u'error_code': u'non_supported_token',
                 u'developer_message': u'Only support DOT type access token with grant type password. '
             })
+
+        # for debug
+        LOGGER.info('===> oauth2/login')
+        LOGGER.info(request)
 
         login(request, request.user)  # login generates and stores the user's cookies in the session
         return HttpResponse(status=204)  # cookies stored in the session are returned with the response
