@@ -32,6 +32,10 @@ update_assets() {
   docker exec -t edx.devstack.lms bash -c 'source /edx/app/edxapp/edxapp_env && cd /edx/app/edxapp/edx-platform/ && paver update_assets'
 }
 
+watch_assets() {
+  docker exec -t edx.devstack.lms bash -c 'source /edx/app/edxapp/edxapp_env && cd /edx/app/edxapp/edx-platform/ && ./watch_assets.sh'
+}
+
 update_env() {
   echo "Copy lms.env.json to edx.devstack.lms:/edx/app/edxapp"
   docker cp lms.env.json edx.devstack.lms:/edx/app/edxapp/
@@ -49,6 +53,7 @@ print_help() {
   printf "  \033[36m restart \033[0m        Kill the LMS Django development server. The watcher process will restart it.\n"
   printf "  \033[36m shell \033[0m          Run a shell on the LMS container\n"
   printf "  \033[36m update_assets \033[0m  Rebuild static assets for LMS service container\n"
+  printf "  \033[36m watch_assets \033[0m   Watch static assets for LMS service container\n"
   printf "  \033[36m update_env \033[0m     copy lms.env.json file to LMS service container\n"
   echo ""
 }
@@ -66,6 +71,8 @@ process_option() {
     up
   elif [ "$1" == "update_assets" ]; then
     update_assets
+  elif [ "$1" == "watch_assets" ]; then
+    watch_assets
   elif [ "$1" == "update_env" ]; then
     update_env
   elif [[ "$1" == "help" || "$1" == "" ]]; then

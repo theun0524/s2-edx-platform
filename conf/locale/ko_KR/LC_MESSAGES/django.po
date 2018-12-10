@@ -4156,7 +4156,7 @@ msgstr ""
 #: lms/templates/courseware/courseware.html
 #: lms/templates/ux/reference/bootstrap/course-skeleton.html
 msgid "Course"
-msgstr ""
+msgstr "코스"
 
 #: common/lib/xmodule/xmodule/textannotation_module.py
 msgid "Text Annotation"
