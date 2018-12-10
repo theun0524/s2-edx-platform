@@ -23,6 +23,7 @@ shell() {
 up() {
   docker-compose -f ../devstack/docker-compose.yml -f ../devstack/docker-compose-host.yml up -d
   docker cp lms.env.json edx.devstack.lms:/edx/app/edxapp/
+  docker cp discovery.yml edx.devstack.discovery:/edx/etc/
   docker exec -t edx.devstack.lms bash -c 'source /edx/app/edxapp/edxapp_env && cd /edx/app/edxapp/edx-platform/ && pip install -e /edx/src/reactlms/'
   cd ../devstack && ./programs/provision.sh cache > /dev/null
 }

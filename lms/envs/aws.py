@@ -1098,6 +1098,9 @@ RETIREMENT_STATES = ENV_TOKENS.get('RETIREMENT_STATES', RETIREMENT_STATES)
 from openedx.core.djangoapps.plugins import plugin_settings, constants as plugin_constants
 plugin_settings.add_plugins(__name__, plugin_constants.ProjectType.LMS, plugin_constants.SettingsType.AWS)
 
+########################## React Render Server URL ########################
+RENDER_SERVER_BASE_URL = 'http://localhost:3000'
+
 ########################## Derive Any Derived Settings  #######################
 
 derive_settings(__name__)
